@@ -1,89 +1,164 @@
-@import "tailwindcss";
-
-@theme {
-  --color-surface-tint: #376757;
-  --color-secondary-fixed: #d5e3fc;
-  --color-surface-bright: #f8f9ff;
-  --color-on-error: #ffffff;
-  --color-primary-fixed-dim: #9ed1bd;
-  --color-primary-container: #1b4d3e;
-  --color-tertiary: #521f00;
-  --color-on-secondary-container: #57657a;
-  --color-on-surface-variant: #404945;
-  --color-tertiary-fixed-dim: #ffb690;
-  --color-on-tertiary: #ffffff;
-  --color-inverse-surface: #213145;
-  --color-inverse-on-surface: #eaf1ff;
-  --color-surface-container: #e5eeff;
-  --color-surface-container-low: #eff4ff;
-  --color-inverse-primary: #9ed1bd;
-  --color-on-tertiary-container: #ff985f;
-  --color-on-primary: #ffffff;
-  --color-on-error-container: #93000a;
-  --color-error: #ba1a1a;
-  --color-surface: #f8f9ff;
-  --color-background-custom: #f8f9ff;
-  --color-surface-dim: #cbdbf5;
-  --color-outline: #707974;
-  --color-surface-container-highest: #d3e4fe;
-  --color-on-tertiary-fixed: #341100;
-  --color-secondary-container: #d5e3fc;
-  --color-on-tertiary-fixed-variant: #783200;
-  --color-on-primary-fixed: #002117;
-  --color-secondary-fixed-dim: #b9c7df;
-  --color-surface-container-high: #dce9ff;
-  --color-on-background: #0b1c30;
-  --color-tertiary-container: #753000;
-  --color-primary-fixed: #baeed9;
-  --color-primary: #003629;
-  --color-on-primary-container: #8abda9;
-  --color-outline-variant: #c0c9c3;
-  --color-error-container: #ffdad6;
-  --color-surface-container-lowest: #ffffff;
-  --color-on-surface: #0b1c30;
-  --color-on-primary-fixed-variant: #1d4f40;
-  --color-surface-variant: #d3e4fe;
-  --color-on-secondary-fixed: #0d1c2e;
-  --color-tertiary-fixed: #ffdbca;
-  --color-on-secondary-fixed-variant: #3a485b;
-  --color-on-secondary: #ffffff;
-  --color-secondary: #515f74;
-
-  --radius-xl: 0.5rem;
-  --radius-full: 0.75rem;
-
-  --font-headline: "Inter", sans-serif;
-  --font-body: "Inter", sans-serif;
-  --font-label: "Inter", sans-serif;
-}
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
 
 :root {
-  --background: #f8f9ff;
-  --foreground: #0b1c30;
+  /* Earthy Mushroom Palette */
+  --color-earth-100: #FAF8F5; /* Very light beige/oyster */
+  --color-earth-200: #EFEBE0; /* Soft sand */
+  --color-earth-300: #D8CFC0; /* Warm taupe */
+  --color-earth-500: #9B8B74; /* Mushroom brown */
+  --color-earth-700: #5C5243; /* Deep bark */
+  --color-earth-900: #2C271F; /* Almost black loam */
+  
+  --color-forest-100: #E8F0E8;
+  --color-forest-500: #4B7F52; /* Fresh leaf green */
+  --color-forest-700: #2D4C31;
+
+  --color-accent: #C85A3C; /* Terracotta orange for alerts/sales */
+
+  --bg-main: var(--color-earth-100);
+  --text-main: var(--color-earth-900);
+  --text-muted: var(--color-earth-500);
+
+  /* Glassmorphism Variables */
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.5);
+  --glass-shadow: 0 8px 32px 0 rgba(92, 82, 67, 0.08);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0b1c30;
-    --foreground: #f8f9ff;
-  }
+* {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-main);
+  background-image: radial-gradient(var(--color-earth-200) 1px, transparent 1px);
+  background-size: 30px 30px;
+  color: var(--text-main);
+  font-family: 'Outfit', sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
-.material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-}
-
-.glass-panel {
-  background: rgba(255, 255, 255, 0.8);
+/* Glassmorphism Utility */
+.glass {
+  background: var(--glass-bg);
   backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  border-radius: 20px;
 }
 
-.dark .glass-panel {
-  background: rgba(11, 28, 48, 0.8);
+/* Typography Utilities */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Premium Button Utility */
+.btn-primary {
+  background-color: var(--color-forest-500);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.75rem;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 14px rgba(75, 127, 82, 0.2);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-forest-700);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(75, 127, 82, 0.3);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-earth-700);
+  border: 2px solid var(--color-earth-300);
+  padding: 0.75rem 1.75rem;
+  border-radius: 12px;
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-earth-200);
+  border-color: var(--color-earth-500);
+}
+
+/* Micro-animations */
+@keyframes fadeInUp {
+  from { 
+    opacity: 0; 
+    transform: translateY(15px); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0); 
+  }
+}
+
+.animate-fade-in {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Dashboard Layout Specifics */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 260px;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  border-right: 1px solid var(--color-earth-200);
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  border-radius: 12px;
+  color: var(--color-earth-700);
+  text-decoration: none;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.nav-link:hover {
+  background-color: var(--color-earth-200);
+  color: var(--color-earth-900);
+}
+
+.nav-link.active {
+  background-color: var(--color-forest-500);
+  color: white;
+  box-shadow: 0 4px 12px rgba(75, 127, 82, 0.2);
 }
