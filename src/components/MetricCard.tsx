@@ -8,9 +8,10 @@ interface MetricCardProps {
     value: number;
     isPositive: boolean;
   };
+  description?: string;
 }
 
-export default function MetricCard({ title, value, icon, trend }: MetricCardProps) {
+export default function MetricCard({ title, value, icon, trend, description }: MetricCardProps) {
   return (
     <div className="glass animate-fade-in" style={{ padding: '1.75rem', display: 'flex', flexDirection: 'column', gap: '1rem' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -32,7 +33,13 @@ export default function MetricCard({ title, value, icon, trend }: MetricCardProp
           color: trend.isPositive ? 'var(--color-forest-500)' : 'var(--color-accent)'
         }}>
           <span>{trend.isPositive ? '↑' : '↓'}</span>
-          <span>{Math.abs(trend.value)}% from last month</span>
+          <span>{Math.abs(trend.value)}% {description ? 'progress' : 'from last month'}</span>
+        </div>
+      )}
+
+      {description && (
+        <div style={{ fontSize: '0.85rem', color: 'var(--text-muted)', fontWeight: 500, marginTop: '-0.25rem' }}>
+          {description}
         </div>
       )}
     </div>
