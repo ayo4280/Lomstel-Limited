@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import "tailwindcss";
 
-:root {
+@theme {
   /* Earthy Mushroom Palette */
   --color-earth-100: #FAF8F5; /* Very light beige/oyster */
   --color-earth-200: #EFEBE0; /* Soft sand */
@@ -15,6 +15,47 @@
 
   --color-accent: #C85A3C; /* Terracotta orange for alerts/sales */
 
+  --color-primary: var(--color-forest-500);
+  --color-on-primary: #ffffff;
+  --color-primary-container: var(--color-forest-100);
+  --color-on-primary-container: var(--color-forest-700);
+  --color-primary-fixed: var(--color-forest-100);
+  --color-primary-fixed-dim: #CBE1CB;
+  --color-on-primary-fixed: var(--color-forest-700);
+
+  --color-secondary: var(--color-earth-500);
+  --color-on-secondary: #ffffff;
+  --color-secondary-container: var(--color-earth-200);
+  --color-on-secondary-container: var(--color-earth-700);
+  --color-secondary-fixed: var(--color-earth-200);
+  --color-on-secondary-fixed: var(--color-earth-900);
+
+  --color-tertiary: var(--color-accent);
+  --color-on-tertiary: #ffffff;
+  --color-tertiary-container: #FBECE8;
+  --color-on-tertiary-container: var(--color-accent);
+  --color-tertiary-fixed: #FCEBE6;
+  --color-on-tertiary-fixed: var(--color-accent);
+
+  --color-surface: var(--color-earth-100);
+  --color-on-surface: var(--color-earth-900);
+  --color-on-surface-variant: var(--color-earth-500);
+  --color-surface-container: #EAE3D5;
+  --color-surface-container-low: #F5F1E9;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-highest: #E5DEC3;
+
+  --color-outline: var(--color-earth-500);
+  --color-outline-variant: var(--color-earth-300);
+
+  --color-error: #B3261E;
+  --color-on-error: #ffffff;
+
+  --font-sans: 'Outfit', 'Inter', sans-serif;
+  --font-label: 'Inter', sans-serif;
+}
+
+:root {
   --bg-main: var(--color-earth-100);
   --text-main: var(--color-earth-900);
   --text-muted: var(--color-earth-500);

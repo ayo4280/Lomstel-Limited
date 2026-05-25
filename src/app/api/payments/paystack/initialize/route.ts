@@ -1,0 +1,46 @@
+import { NextRequest, NextResponse } from 'next/server';
+// POST /api/payments/paystack/initialize
+export async function POST(req: NextRequest) {
+  try {
+    const body = await req.json();
+    const { email, amount, currency, orderId, metadata } = body;
+
+    if (!email || !amount || !orderId) {
+      return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
+    }
+
+    const response = await fetch('https://api.paystack.co/transaction/initialize', {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${process.env.PAYSTACK_SECRET_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        email,
+        amount: Math.round(amount * 100), // Paystack uses kobo (smallest unit)
+        currency: currency || 'NGN',
+        reference: orderId,
+        metadata: {
+          order_id: orderId,
+          ...metadata,
+        },
+        callback_url: `${process.env.NEXT_PUBLIC_APP_URL || 'http://localhost:3000'}/dashboard/orders?payment=success`,
+      }),
+    });
+
+    const data = await response.json();
+
+    if (!data.status) {
+      return NextResponse.json({ error: data.message || 'Paystack initialization failed' }, { status: 400 });
+    }
+
+    return NextResponse.json({
+      authorization_url: data.data.authorization_url,
+      reference: data.data.reference,
+      access_code: data.data.access_code,
+    });
+  } catch (error: any) {
+    console.error('Paystack init error:', error);
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
+  }
+}

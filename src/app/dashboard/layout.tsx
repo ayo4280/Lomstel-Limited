@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { supabase } from '@/utils/supabase/client';
-import { LayoutDashboard, Boxes, FileText, Settings, LogOut, User, Loader2 } from 'lucide-react';
+import { LayoutDashboard, Boxes, FileText, Settings, LogOut, User, Loader2, Bot, Store, ShoppingCart } from 'lucide-react';
 
 export default function DashboardLayout({
   children,
@@ -26,7 +26,6 @@ export default function DashboardLayout({
           return;
         }
 
-        // Fetch user profile to check role
         const { data: userProfile, error } = await supabase
           .from('profiles')
           .select('*')
@@ -34,7 +33,6 @@ export default function DashboardLayout({
           .single();
 
         if (error || !userProfile) {
-          // Fallback if profile row wasn't triggered yet or fails
           setProfile({
             full_name: session.user.user_metadata?.full_name || 'Lomstel Member',
             role: session.user.user_metadata?.role || 'BUYER'
@@ -76,13 +74,12 @@ export default function DashboardLayout({
   }
 
   const role = profile?.role || 'BUYER';
-  const showInventory = role === 'ADMIN' || role === 'FARM_WORKER';
+  const showAdminFeatures = role === 'ADMIN' || role === 'FARM_WORKER';
 
   return (
     <div className="dashboard-layout animate-fade-in">
       <aside className="sidebar" style={{ display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
         <div>
-          {/* Logo Header */}
           <div style={{ marginBottom: '2.5rem', padding: '0 0.5rem' }}>
             <h2 style={{ color: 'var(--color-forest-700)', margin: 0, fontSize: '1.75rem', letterSpacing: '-0.5px', fontWeight: 800 }}>
               Lomstel
@@ -92,45 +89,45 @@ export default function DashboardLayout({
             </p>
           </div>
           
-          {/* Navigation links */}
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-            <Link 
-              href="/dashboard" 
-              className={`nav-link ${pathname === '/dashboard' ? 'active' : ''}`}
-            >
+            <Link href="/dashboard" className={`nav-link ${pathname === '/dashboard' ? 'active' : ''}`}>
               <LayoutDashboard size={20} />
               Dashboard
             </Link>
+            <Link href="/dashboard/marketplace" className={`nav-link ${pathname === '/dashboard/marketplace' ? 'active' : ''}`}>
+              <Store size={20} />
+              Marketplace
+            </Link>
+            <Link href="/dashboard/orders" className={`nav-link ${pathname === '/dashboard/orders' ? 'active' : ''}`}>
+              <ShoppingCart size={20} />
+              Orders
+            </Link>
             
-            {showInventory && (
-              <Link 
-                href="/dashboard/inventory" 
-                className={`nav-link ${pathname === '/dashboard/inventory' ? 'active' : ''}`}
-              >
-                <Boxes size={20} />
-                Inventory
-              </Link>
+            {showAdminFeatures && (
+              <>
+                <Link href="/dashboard/inventory" className={`nav-link ${pathname === '/dashboard/inventory' ? 'active' : ''}`}>
+                  <Boxes size={20} />
+                  Inventory
+                </Link>
+                <Link href="/dashboard/certificates" className={`nav-link ${pathname === '/dashboard/certificates' ? 'active' : ''}`}>
+                  <FileText size={20} />
+                  Certificates
+                </Link>
+              </>
             )}
 
-            <Link 
-              href="/dashboard/certificates" 
-              className={`nav-link ${pathname === '/dashboard/certificates' ? 'active' : ''}`}
-            >
-              <FileText size={20} />
-              Certificates
+            <Link href="/dashboard/ai-agent" className={`nav-link ${pathname === '/dashboard/ai-agent' ? 'active' : ''}`}>
+              <Bot size={20} />
+              AI Agent
             </Link>
 
-            <Link 
-              href="/dashboard/settings" 
-              className={`nav-link ${pathname === '/dashboard/settings' ? 'active' : ''}`}
-            >
+            <Link href="/dashboard/settings" className={`nav-link ${pathname === '/dashboard/settings' ? 'active' : ''}`}>
               <Settings size={20} />
               Settings
             </Link>
           </nav>
         </div>
 
-        {/* User Card & Logout */}
         <div style={{
           borderTop: '1px solid var(--glass-border)',
           paddingTop: '1.25rem',
